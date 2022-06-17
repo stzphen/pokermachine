@@ -31,10 +31,12 @@ class Card(object):
             self.rank = RANKIDS[input[0]]
             self.suit = input[1]
             self.id = self.rank + (13 * SUITIDS[self.suit])
+            self.printID = input
         else:
             self.id = input
             self.suit = SUITS[input // 13]
             self.rank = RANKS[input % 13]
+            self.printID = CARDS[self.rank] + self.suit
 
     def __eq__(self, other): 
         if not isinstance(other, Card):

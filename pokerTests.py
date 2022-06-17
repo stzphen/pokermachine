@@ -50,9 +50,13 @@ def testPreflopCalculator():
     actual11 = {0 : (.3635, .0043), 1 : (.1102, .00491), 2 : (.1799, .0035), 3 : (.1214, .0035), 4 : (.1223, .0035), 5 : (.0654, .0056), 6 : (.0001, .0363), 7 : (.0001, .0363)}
     compareRunouts(runPreFlopSim(8, [[Card("As"), Card("Ac")], [Card("Ah"), Card("Kh")], [Card("5s"), Card("6s")], [Card("7s"), Card("8s")], [Card("9s"), Card("Ts")], [Card("Js"), Card("Qs")], [Card("Ks"), Card("Qc")], [Card("Kc"), Card("Qh")]]), actual11)
 
+def testRiverCalculator():
+    runRiverSim(2, [[Card("Ks"), Card("Kh")], [Card("Qs"), Card("Qh")]], [Card("As"), Card("Ah"), Card("2s"), Card("2h")])
+
 def testAll():
     testGenerateHandID()
     testGenerateBestHand()
     testPreflopCalculator()
+    testRiverCalculator()
 
 testAll()
