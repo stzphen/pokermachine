@@ -136,7 +136,6 @@ class Game(object):
     def restartHand(self):
         pass
 
-
 def generateHandID(hand: list) -> int:
     # sort hand by rank greatest to least
     hand.sort(key=lambda x: x.rank, reverse=True)
