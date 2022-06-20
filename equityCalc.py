@@ -81,9 +81,40 @@ def runPreFlopSim(numPlayers: int, playerList: list):
 # postflop 
 
 def runTurnSim(numPlayers: int, playerList: list, board: list):
-    # generate random hands for each player
-    player1Hands = []
-    player2Hands = []
+    wins = {}
+    deck = Deck()
+    removeAllCards(deck, playerList, board)
+    deckList = deck.deck
+    for i in range(numPlayers):
+        wins[i] = [0, 0]
+    for i in range(len(deckList)):
+        for j in range(len(deckList)):
+            if i != j:
+                prevBoard = board.copy()
+                board.append(deckList[i])
+                board.append(deckList[j])
+                minScore = 8000
+                minPlayer = []
+                for k in range(numPlayers):
+                    allCards = playerList[k] + board
+                    # print(allCards)
+                    score = generateBestHand(allCards)
+                    if score < minScore:
+                        minScore = score
+                        minPlayer = [k]
+                    elif score == minScore:
+                        minPlayer.append(k)
+                if len(minPlayer) == 1:
+                    wins[minPlayer[0]] = (wins[minPlayer[0]][0] + 1, wins[minPlayer[0]][1])
+                else:
+                    for i, player in enumerate(minPlayer):
+                        wins[player] = (wins[player][0], wins[player][1] + 1)
+                board = prevBoard
+    for key in wins:
+         wins[key] = (wins[key][0] / len(deckList), wins[key][1] / len(deckList))
+    print(beautifyOutput(wins, playerList))
+    return wins
+
 
 def runRiverSim(numPlayers: int, playerList: list, board: list):
     wins = {}
