@@ -10,7 +10,7 @@ from poker import *
     # 3b.1. go through every combination of turn/river, determine best hand, add win/tie to one of players
     # 3b.2. find equity
 
-runtimes = 8000
+runtimes = 9090
 
 # for testing
 def compareRunouts(wins, actual):

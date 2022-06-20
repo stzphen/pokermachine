@@ -139,72 +139,12 @@ class Game(object):
         pass
 
 def generateHandID(hand: list) -> int:
-    # sort hand by rank greatest to least
-    hand.sort(key=lambda x: x.rank, reverse=True)
-
-    # wheel straight
-    if hand[0].rank == 14 and hand[1].rank == 5 and hand[2].rank == 4 and hand[3].rank == 3 and hand[4].rank == 2:
-        hand = [hand[1], hand[2], hand[3], hand[4], hand[0]]
-
-    # quads
-    # A A A A 2
-    if (hand[0].rank == hand[1].rank and hand[1].rank == hand[2].rank and hand[2].rank == hand[3].rank):
-        pass
-    # K 9 9 9 9
-    elif (hand[1].rank == hand[2].rank and hand[2].rank == hand[3].rank and hand[3].rank == hand[4].rank):
-        hand = [hand[1], hand[2], hand[3], hand[4], hand[0]]
-
-    # full house
-    # 8 8 8 2 2
-    elif (hand[0].rank == hand[1].rank and hand[1].rank == hand[2].rank and hand[3].rank == hand[4].rank):
-        pass
-    # 2 2 2 8 8
-    elif (hand[0].rank == hand[1].rank and hand[2].rank == hand[3].rank and hand[3].rank == hand[4].rank):
-        hand = [hand[2], hand[3], hand[4], hand[0], hand[1]]
-
-    # trips
-    # 9 9 9 3 2
-    elif (hand[0].rank == hand[1].rank and hand[1].rank == hand[2].rank):
-        pass
-    # 10 9 9 9 3
-    elif (hand[1].rank == hand[2].rank and hand[2].rank == hand[3].rank):
-        hand = [hand[1], hand[2], hand[3], hand[0], hand[4]]
-    # J 10 9 9 9
-    elif (hand[2].rank == hand[3].rank and hand[3].rank == hand[4].rank):
-        hand = [hand[2], hand[3], hand[4], hand[0], hand[1]]
-
-    # two pair
-    # A A K K 10
-    elif (hand[0].rank == hand[1].rank and hand[2].rank == hand[3].rank):
-        pass
-    # A A 10 9 9
-    elif (hand[0].rank == hand[1].rank and hand[3].rank == hand[4].rank):
-        hand = [hand[0], hand[1], hand[3], hand[4], hand[2]]
-    # A K K 9 9
-    elif (hand[1].rank == hand[2].rank and hand[3].rank == hand[4].rank):
-        hand = [hand[1], hand[2], hand[3], hand[4], hand[0]]
-
-    # one pair
-    # 10 10 8 6 5
-    elif (hand[0].rank == hand[1].rank):
-        pass
-    # J 10 10 8 6
-    elif (hand[1].rank == hand[2].rank):
-        hand = [hand[1], hand[2], hand[0], hand[3], hand[4]]
-    # Q J 10 10 8
-    elif (hand[2].rank == hand[3].rank):
-        hand = [hand[2], hand[3], hand[0], hand[1], hand[4]]
-    # K Q J 10 10
-    elif (hand[3].rank == hand[4].rank):
-        hand = [hand[3], hand[4], hand[0], hand[1], hand[2]]
-
     # generate hand ID
     handID = 0
     for i in range(5):
         handID |= (hand[i].rank << (4 * (4 - i)))
     if hand[0].suit == hand[1].suit and hand[1].suit == hand[2].suit and hand[2].suit == hand[3].suit and hand[3].suit == hand[4].suit:
         handID |= suitedID
-
     # print(readableHandID(handID))
     return handID
 
