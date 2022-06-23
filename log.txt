@@ -1,0 +1,32 @@
+15:18
+-- ending hand #5 --
+
+15:18
+stezphen collected 50 from pot
+
+15:18
+Uncalled bet of 200356 returned to stezphen
+
+15:18
+Jeff folds
+
+15:18
+sack folds
+
+15:18
+stezphen raises to 200376
+
+15:18
+Jeff posts a big blind of 20
+
+15:18
+sack posts a small blind of 10
+
+15:18
+Your hand is 5♣, 4♠
+
+15:18
+Player stacks: #2 sack (200376) | #5 Jeff (19800) | #10 stezphen (400120)
+
+15:18
+-- starting hand #5 (No Limit Texas Hold'em) (dealer: stezphen) --
