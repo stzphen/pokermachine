@@ -49,6 +49,7 @@ def testPreflopCalculator():
     print("preflop runtimes: ", time.time() - start)
     start = time.time()
 
+    '''
     actual5 = {0 : (.6721, .0050), 1 : (.1760, .0050), 2 : (.1469, .0050)}
     compareRunouts(runPreFlopSim(3, [[Card("As"), Card("Ac")], [Card("Kh"), Card("Kc")], [Card("Qs"), Card("Qh")]]), actual5)
     print("preflop runtimes: ", time.time() - start)
@@ -83,6 +84,10 @@ def testPreflopCalculator():
     compareRunouts(runPreFlopSim(8, [[Card("As"), Card("Ac")], [Card("Ah"), Card("Kh")], [Card("5s"), Card("6s")], [Card("7s"), Card("8s")], [Card("9s"), Card("Ts")], [Card("Js"), Card("Qs")], [Card("Ks"), Card("Qc")], [Card("Kc"), Card("Qh")]]), actual11)
     print("preflop runtimes: ", time.time() - start)
     start = time.time()
+    '''
+
+def testTurnCalculator():
+    runTurnSim(2, [[Card("As"), Card("Ks")], [Card("3h"), Card("3d")]], [Card("4s"), Card("4c"), Card("5s")])
 
 def testRiverCalculator():
     runRiverSim(2, [[Card("Ks"), Card("Kh")], [Card("Qs"), Card("Qh")]], [Card("As"), Card("Ah"), Card("2s"), Card("2h")])
@@ -96,3 +101,5 @@ def testAll():
 #testAll()
 
 testPreflopCalculator()
+testRiverCalculator()
+testTurnCalculator()

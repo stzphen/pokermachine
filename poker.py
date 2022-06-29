@@ -29,6 +29,7 @@ def readableHandID(handID: int):
 
 class Card(object):
     def __init__(self, input):
+        #error handling: cards that don't exist
         if type(input) == str:
             if len(input) > 2: #10 case
                 input = "T" + input[-1]
@@ -40,7 +41,6 @@ class Card(object):
                 self.suit = SUITSYMBOLS[input[-1]]
                 self.printID = input[:-1] + self.suit
             self.id = self.rank + (13 * SUITIDS[self.suit])
-            print(self.printID)
         else:
             self.id = input
             self.suit = SUITS[input // 13]
@@ -111,6 +111,7 @@ class Player(object):
         print(f"position: {self.position}\n")
         if self.hero:
             print(f"holeCards: {self.holeCards}\n")
+        print(f"actions: {self.actions}\n")
     
     def smallBlind(self, amount):
         self.stack -= amount
@@ -257,10 +258,6 @@ class Game(object):
             else:
                 players.append(Player(names[j], stacks[j], POSITIONS[j], False))
             betThisRound.append(0)
-            
-        
-        #for play in players:
-            #play.debugPrintInfo()
 
         table = Table()
         for card in holeCards:
@@ -407,6 +404,10 @@ class Game(object):
         print("action", players[action].name)
         print("betToMatch", betToMatch)
 
+        for play in players:
+            play.debugPrintInfo()
+
+
     def startHand(self):
         self.deck = Deck().shuffle()
 
@@ -424,3 +425,24 @@ class Game(object):
         pass
 
 Game("log.txt", "sack")
+
+# will be deleted, for testing purposes
+
+def generateHandID(hand : list) -> int:
+        # generate hand ID
+        handID = 0
+        for i in range(5):
+            handID |= (hand[i].rank << (4 * (4 - i)))
+        if hand[0].suit == hand[1].suit and hand[1].suit == hand[2].suit and hand[2].suit == hand[3].suit and hand[3].suit == hand[4].suit:
+            handID |= suitedID
+        # print(readableHandID(handID))
+        return handID
+
+def generateBestHand(hand) -> int:
+    allCombos = list(itertools.combinations(hand, 5))
+    minValue = 1000000000
+    for tmp in allCombos:
+        generatedValue = generateHandID(tmp)
+        if pokerDict[generatedValue] < minValue:
+            minValue = pokerDict[generatedValue]
+    return minValue

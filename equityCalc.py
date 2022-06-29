@@ -85,8 +85,9 @@ def runTurnSim(numPlayers: int, playerList: list, board: list):
     deck = Deck()
     removeAllCards(deck, playerList, board)
     deckList = deck.deck
-    for i in range(numPlayers):
-        wins[i] = [0, 0]
+    assert(len(deckList) == 45)
+    for x in range(numPlayers):
+        wins[x] = [0, 0]
     for i in range(len(deckList)):
         for j in range(len(deckList)):
             if i != j:
@@ -97,7 +98,6 @@ def runTurnSim(numPlayers: int, playerList: list, board: list):
                 minPlayer = []
                 for k in range(numPlayers):
                     allCards = playerList[k] + board
-                    # print(allCards)
                     score = generateBestHand(allCards)
                     if score < minScore:
                         minScore = score
@@ -107,11 +107,11 @@ def runTurnSim(numPlayers: int, playerList: list, board: list):
                 if len(minPlayer) == 1:
                     wins[minPlayer[0]] = (wins[minPlayer[0]][0] + 1, wins[minPlayer[0]][1])
                 else:
-                    for i, player in enumerate(minPlayer):
+                    for l, player in enumerate(minPlayer):
                         wins[player] = (wins[player][0], wins[player][1] + 1)
                 board = prevBoard
     for key in wins:
-         wins[key] = (wins[key][0] / len(deckList), wins[key][1] / len(deckList))
+         wins[key] = (wins[key][0] / 1980, wins[key][1] / 1980)
     print(beautifyOutput(wins, playerList))
     return wins
 
@@ -121,8 +121,8 @@ def runRiverSim(numPlayers: int, playerList: list, board: list):
     deck = Deck()
     removeAllCards(deck, playerList, board)
     deckList = deck.deck
-    for i in range(numPlayers):
-        wins[i] = [0, 0]
+    for x in range(numPlayers):
+        wins[x] = [0, 0]
     for i in range(len(deckList)):
         prevBoard = board.copy()
         board.append(deckList[i])
