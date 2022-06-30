@@ -26,6 +26,10 @@ def cardsToString(c1 : Card, c2 : Card) -> string:
         result += "o"
     return result
 
+def cardsToSuitedString(c1 : Card, c2 : Card) -> string:
+    result = CARDS[c1.rank] + c1.suit + CARDS[c2.rank] + c2.suit
+    return result
+
 def stringToIndex(cards: string) -> list: #make pairs not need o or s
     r1 = RANKINDS[cards[0]]
     r2 = RANKINDS[cards[1]]
@@ -43,10 +47,14 @@ class rangeChart(object):
         # 1) rc.exists( "KQs" ) checks if KQs is in the range
         # 2) rc.exists( [Card("Kh"), Card("Qh")], True ) checks if KQ of hearts is in the range
     def exists(self, cards, cardParam = False) -> int:
-        print(cardParam)
         if cardParam:
             # assert(type of cards == list of 2 cards)
-            cards = cardsToString(cards[0], cards[1])
+            cardstring = cardsToString(cards[0], cards[1])
+            index = stringToIndex(cardstring)
+            if not self.chart[index[0]][index[1]][0]:
+                return 0
+            suitedCards = cardsToSuitedString(cards[0], cards[1])
+            return int(suitedCards in self.chart[index[0]][index[1]][1])
         # else assert(type of cards == string)
         index = stringToIndex(cards)
         print(index[0], index[1])
@@ -61,4 +69,3 @@ class rangeChart(object):
         return self.chart[index[0]][index[1]][1]
 
 rc = rangeChart()
-print(rc.chart)
