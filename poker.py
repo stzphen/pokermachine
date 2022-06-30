@@ -424,7 +424,7 @@ class Game(object):
     def restartHand(self):
         pass
 
-Game("log.txt", "sack")
+# Game("log.txt", "sack")
 
 # will be deleted, for testing purposes
 
