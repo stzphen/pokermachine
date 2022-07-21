@@ -11,6 +11,8 @@ SUITED = {"o":0, "s":1}
 RangeChart documentation:
 rc = rangeChart()
 rc.chart[x][y] = [exists, combos]
+    exists = 1 or 0
+    combos = [number of combos, {set of combos}]
 rc.exists() fetches exists
     can check whether a given hand is in the range
     1) generic hand (i.e., AAo, KQs, 56o)
@@ -92,7 +94,7 @@ class rangeChart(object):
         index = stringToIndex(cards)
         return self.chart[index[0]][index[1]][0]
 
-    # updates combos (1). Also updates exists (0) if necessary
+    # updates combos (1). Also updates exists (0) if necesabgeary
     # Use cases:
         # 1) rc.removeCombo( "KQs" ) removes all KQs from range
         # 2) rc.removeCombo( [Card("Kh"), Card("Qh")], True ) removes KhQh from range
@@ -104,8 +106,8 @@ class rangeChart(object):
             if not self.chart[index[0]][index[1]][0]:
                 return
             suitedCards = cardsToSuitedString(cards[0], cards[1])
-            if suitedCards in self.chart[index[0]][index[1]][1]:
-                self.chart[index[0]][index[1]][1].remove(suitedCards)
+            if suitedCards in self.chart[index[0]][index[1]][1][1]:
+                self.chart[index[0]][index[1]][1][1].remove(suitedCards)
                 # decrement combos size by 1
                 self.chart[index[0]][index[1]][1][0] -= 1
                 if self.chart[index[0]][index[1]][1][0] == 0:
@@ -116,16 +118,18 @@ class rangeChart(object):
             index = stringToIndex(cards)
             self.chart[index[0]][index[1]][0] = 0
             # no combos remaining
-            self.chart[index[0]][index[1]][1] = [0]
+            self.chart[index[0]][index[1]][1] = [0, set()]
         return
     
     # Index: 1
+    # returns a set
     def combos(self, cards, cardParam = False):
         if cardParam:
             # assert(type of cards == list of 2 cards)
             cards = cardsToString(cards[0], cards[1])
         # else assert(type of cards == string)
         index = stringToIndex(cards)
-        return self.chart[index[0]][index[1]][1]
+        return self.chart[index[0]][index[1]][1][1]
 
 range_chart = rangeChart()
+range_chart.dbg_removeCombo()
