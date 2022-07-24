@@ -43,7 +43,7 @@ def stringToIndex(cards: string) -> list: #make pairs not need o or s
         return [min(r2, r1), max(r2, r1)]
     return [max(r2, r1), min(r2, r1)]
 
-class rangeChart(object):
+class RangeChart(object):
 
     def __init__(self) -> None:
         self.chart = rc
@@ -80,7 +80,7 @@ class rangeChart(object):
     # Index: 0
     # Use cases:
         # 1) rc.exists( "KQs" ) checks if KQs is in the range
-        # 2) rc.exists( [Card("Kh"), Card("Qh")], True ) checks if KQ of hearts is in the range
+        # 2) rc.exists( [Card("Kh"), Card("Qh")] , True ) checks if KQ of hearts is in the range
     def exists(self, cards, cardParam = False) -> int:
         if cardParam:
             # assert(type of cards == list of 2 cards)
@@ -131,5 +131,5 @@ class rangeChart(object):
         index = stringToIndex(cards)
         return self.chart[index[0]][index[1]][1][1]
 
-range_chart = rangeChart()
-range_chart.dbg_removeCombo()
+range_chart = RangeChart()
+# range_chart.dbg_removeCombo()
