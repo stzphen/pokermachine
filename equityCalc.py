@@ -53,14 +53,14 @@ def runPreFlopSim(numPlayers: int, playerList: list):
     for i in range(numPlayers):
         wins[i] = [0, 0]
     for i in range(runtimes):
-        board = []
+        b = Board().board
         prevDeckgoatDeck = deckgoat.deck.copy()
         for bc in range(5):
-            board.append(deckgoat.deal())
+            b.append(deckgoat.deal())
         minScore = 8000
         minPlayer = []
         for j in range(numPlayers):
-            allCards = playerList[j] + board
+            allCards = playerList[j] + b
             # print(allCards)
             score = generateBestHand(allCards)
             if score < minScore:

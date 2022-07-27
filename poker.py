@@ -142,23 +142,18 @@ class Player(object):
     def fold(self, round):
         self.actions[round].append(("fold", 0))
 
+class Board(object):
+    def __init__(self):
+        self.board = []
+    
+    def addCard(self, card):
+        self.board.append(card)
 
 class Table(object):
     def __init__(self):
-        self.board = []
+        self.board = Board()
         self.pot = 0
         self.deck = Deck()
-
-    def dealFlop(self, deck):
-        for i in range(3):
-            self.board.add(deck.deal())
-
-    def dealTurn(self, deck):
-        self.board.add(deck.deal())
-
-    def dealRiver(self, deck):
-        self.board.add(deck.deal())
-
 
 class Hand(object): #should change hand so it takes in a list, generates best hand
     def __init__(self, holecards: list, table: Table):

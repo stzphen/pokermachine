@@ -87,10 +87,19 @@ def testPreflopCalculator():
     '''
 
 def testTurnCalculator():
-    runTurnSim(2, [[Card("As"), Card("Ks")], [Card("3h"), Card("3d")]], [Card("4s"), Card("4c"), Card("5s")])
+    b = Board()
+    b.addCard(Card("4s"))
+    b.addCard(Card("4c"))
+    b.addCard(Card("5s"))
+    runTurnSim(2, [[Card("As"), Card("Ks")], [Card("3h"), Card("3d")]], b.board)
 
 def testRiverCalculator():
-    runRiverSim(2, [[Card("Ks"), Card("Kh")], [Card("Qs"), Card("Qh")]], [Card("As"), Card("Ah"), Card("2s"), Card("2h")])
+    b = Board()
+    b.addCard(Card("As"))
+    b.addCard(Card("Ah"))
+    b.addCard(Card("2s"))
+    b.addCard(Card("2h"))
+    runRiverSim(2, [[Card("Ks"), Card("Kh")], [Card("Qs"), Card("Qh")]], b.board)
 
 def testAll():
     testGenerateHandID()
