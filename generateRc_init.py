@@ -4,8 +4,12 @@ output = {2:"2", 3:"3", 4:"4", 5:"5", 6:"6", 7:"7", 8:"8", 9:"9", 10:"T", 11:"J"
 # suits
 suits = ["c", "d", "h", "s"]
 
+# print("rc = [  ", end = "")
 for i, rank1 in enumerate(ranks):
+    print("        [   ", end = "")
     for j in range(13):
+        if j != 0:
+            print("            ", end = "")
         combos = [0, set()]
         rank2 = ranks[j]
         if rank1 > rank2:
@@ -16,7 +20,7 @@ for i, rank1 in enumerate(ranks):
                 combos[0] += 1
                 combos[1].add(card)
             assert(combos[0] == 4)
-            print(output[rank1] + output[rank2] + "s", combos)
+            # print(output[rank1] + output[rank2] + "s", combos)
         elif rank1 < rank2:
             # offsuit
             for suit1 in suits:
@@ -27,7 +31,7 @@ for i, rank1 in enumerate(ranks):
                     combos[0] += 1
                     combos[1].add(card)
             assert(combos[0] == 12)
-            print(output[rank2] + output[rank1] + "o", combos)
+            # print(output[rank2] + output[rank1] + "o", combos)
         else:
             #pocket pair
             for x, suit1 in enumerate(suits):
@@ -37,4 +41,10 @@ for i, rank1 in enumerate(ranks):
                     combos[0] += 1
                     combos[1].add(card)
             assert(combos[0] == 6)
-            print(output[rank1] + output[rank2], combos)
+            # print(output[rank1] + output[rank2], combos)
+        print("[1, ", end = "")
+        print(combos, end = "")
+        print("]", end = "")
+        if j == 12:
+            print("]", end = "")
+        print(", ")
