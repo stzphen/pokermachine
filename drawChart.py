@@ -1,6 +1,7 @@
 import tkinter as tk
+from rangeCharts import *
 
-def drawChart(canvas):
+def drawChart(canvas, rangeChart):
     cardlist = ["A", "K", "Q", "J", "T", 9, 8, 7, 6, 5, 4, 3, 2]
     grid = []
     index = 0
@@ -18,13 +19,18 @@ def drawChart(canvas):
                 grid.append(str(jeff) + str(steve))
     for x in range(13):
         for y in range(13):
-            canvas.create_rectangle(50*x, 50*y, 50*(x+1), 50*(y+1), fill = "yellow")
+            if rangeChart.exists(grid[index]) == 1:
+                color = "blue"
+            else:
+                color = "yellow"
+            canvas.create_rectangle(50*x, 50*y, 50*(x+1), 50*(y+1), fill = color)
             canvas.create_text(25 + 50*x, 50 *y + 25, text = grid[index])
             index += 1
 
 root = tk.Tk()
 canvas = tk.Canvas(root, width = 650, height = 650)
-drawChart(canvas)
+rc = RangeChart()
+drawChart(canvas, rc)
 canvas.pack()
 root.mainloop()
 

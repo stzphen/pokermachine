@@ -39,7 +39,7 @@ def cardsToSuitedString(c1 : Card, c2 : Card) -> string:
 def stringToIndex(cards: string) -> list: #make pairs not need o or s
     r1 = RANKINDS[cards[0]]
     r2 = RANKINDS[cards[1]]
-    if SUITED[cards[2].lower()]:
+    if (len(cards) < 3) or (SUITED[cards[2].lower()]):
         return [min(r2, r1), max(r2, r1)]
     return [max(r2, r1), min(r2, r1)]
 
