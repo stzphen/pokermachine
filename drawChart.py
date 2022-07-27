@@ -27,3 +27,5 @@ canvas = tk.Canvas(root, width = 650, height = 650)
 drawChart(canvas)
 canvas.pack()
 root.mainloop()
+
+#test
