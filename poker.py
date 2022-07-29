@@ -53,6 +53,9 @@ class Card(object):
             return NotImplemented
 
         return self.rank == other.rank and self.suit == other.suit
+    
+    def __repr__(self):
+        return f"{self.printID}"
 
     def rank(self):
         return self.rank
@@ -70,7 +73,7 @@ class Card(object):
 class Deck(object):
     def __init__(self):
         self.reset()
-        self.shuffle()
+        # self.shuffle()
         
     def reset(self):
         self.deck = []

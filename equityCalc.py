@@ -10,7 +10,7 @@ from poker import *
     # 3b.1. go through every combination of turn/river, determine best hand, add win/tie to one of players
     # 3b.2. find equity
 
-runtimes = 500
+runtimes = 21000
 
 # for testing
 def compareRunouts(wins, actual):
@@ -33,6 +33,9 @@ def beautifyOutput(wins, playerList):
     for key in wins:
         result += f"Player {key} ({playerList[key][0].printID}, {playerList[key][1].printID}): {round((wins[key][0] * 100), 2)}% wins, {round((wins[key][1] * 100), 2)}% ties\n"
     return result[0:-1]
+
+def printHVHDict(wins, playerList):
+    print(f"(('{playerList[0][0]}', '{playerList[0][1]}'), ('{playerList[1][0]}', '{playerList[1][1]}')) : [{wins[0][0]}, {wins[0][1]}, {wins[1][0]}], ")
 
 def removeAllCards(deck, playerList, board = []):
     # remove hole cards / board cards
@@ -75,7 +78,8 @@ def runPreFlopSim(numPlayers: int, playerList: list):
                 wins[player] = (wins[player][0], wins[player][1] + 1)
         deckgoat.deck = prevDeckgoatDeck
     for key in wins:
-         wins[key] = (wins[key][0] / runtimes, wins[key][1] / runtimes)
+        wins[key] = (wins[key][0] / runtimes, wins[key][1] / runtimes)
+    # print(beautifyOutput(wins, playerList))
     return wins
 
 # postflop 
@@ -113,7 +117,7 @@ def runFlopSim(numPlayers: int, playerList: list, board: list):
                         wins[player] = (wins[player][0], wins[player][1] + 1)
     for key in wins:
          wins[key] = (wins[key][0] / 1980, wins[key][1] / 1980)
-    #print(beautifyOutput(wins, playerList))
+    print(beautifyOutput(wins, playerList))
     return wins
 
 

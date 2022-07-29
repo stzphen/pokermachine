@@ -46,7 +46,7 @@ def testPreflopCalculator():
     compareRunouts(runPreFlopSim(2, [[Card(8), Card(9)], [Card(19), Card(32)]]), actual3)
     print("preflop runtimes: ", time.time() - start)
     start = time.time()
-
+    
     actual4 = {0 : (.6747, .0060), 1 : (.1703, .0060), 2 : (.1490, .0060)}
     compareRunouts(runPreFlopSim(3, [[Card("As"), Card("Ac")], [Card("Ks"), Card("Kc")], [Card("Qs"), Card("Qc")]]), actual4)
     print("preflop runtimes: ", time.time() - start)
