@@ -1,5 +1,8 @@
 from poker import *
 from equityCalc import *
+from equityAgainstRange import *
+from rfi_charts import *
+
 import time
 
 deck = Deck()
@@ -49,7 +52,6 @@ def testPreflopCalculator():
     print("preflop runtimes: ", time.time() - start)
     start = time.time()
 
-    '''
     actual5 = {0 : (.6721, .0050), 1 : (.1760, .0050), 2 : (.1469, .0050)}
     compareRunouts(runPreFlopSim(3, [[Card("As"), Card("Ac")], [Card("Kh"), Card("Kc")], [Card("Qs"), Card("Qh")]]), actual5)
     print("preflop runtimes: ", time.time() - start)
@@ -84,31 +86,30 @@ def testPreflopCalculator():
     compareRunouts(runPreFlopSim(8, [[Card("As"), Card("Ac")], [Card("Ah"), Card("Kh")], [Card("5s"), Card("6s")], [Card("7s"), Card("8s")], [Card("9s"), Card("Ts")], [Card("Js"), Card("Qs")], [Card("Ks"), Card("Qc")], [Card("Kc"), Card("Qh")]]), actual11)
     print("preflop runtimes: ", time.time() - start)
     start = time.time()
-    '''
+
+def testFlopCalculator():
+    b = Board()
+    b.addCards([Card("4s"), Card("4c"), Card("5s")])
+    runFlopSim(2, [[Card("As"), Card("Ks")], [Card("3h"), Card("3d")]], b.board)
 
 def testTurnCalculator():
     b = Board()
-    b.addCard(Card("4s"))
-    b.addCard(Card("4c"))
-    b.addCard(Card("5s"))
-    runTurnSim(2, [[Card("As"), Card("Ks")], [Card("3h"), Card("3d")]], b.board)
+    b.addCards([Card("As"), Card("Ah"), Card("2s"), Card("2h")])
+    runTurnSim(2, [[Card("Ks"), Card("Kh")], [Card("Qs"), Card("Qh")]], b.board)
 
-def testRiverCalculator():
+def testEquityAgainstRange():
     b = Board()
-    b.addCard(Card("As"))
-    b.addCard(Card("Ah"))
-    b.addCard(Card("2s"))
-    b.addCard(Card("2h"))
-    runRiverSim(2, [[Card("Ks"), Card("Kh")], [Card("Qs"), Card("Qh")]], b.board)
+    b.addCards([Card("Ks"), Card("7h"), Card("9h")])
+
+    
+
 
 def testAll():
-    testGenerateHandID()
+    #testGenerateHandID()
     testGenerateBestHand()
     testPreflopCalculator()
-    testRiverCalculator()
+    #testFlopCalculator()
 
 #testAll()
 
-testPreflopCalculator()
-testRiverCalculator()
-testTurnCalculator()
+# testAll()

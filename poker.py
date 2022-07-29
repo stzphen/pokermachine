@@ -146,8 +146,9 @@ class Board(object):
     def __init__(self):
         self.board = []
     
-    def addCard(self, card):
-        self.board.append(card)
+    def addCards(self, cards: list):
+        for c in cards:
+            self.board.append(c)
 
 class Table(object):
     def __init__(self):

@@ -35,6 +35,9 @@ def cardsToSuitedString(c1 : Card, c2 : Card) -> string:
     result = CARDS[c1.rank] + c1.suit + CARDS[c2.rank] + c2.suit
     return result
 
+def suitedStringToCards(cards : string):
+    return [Card(cards[0:2]), Card(cards[2:])]
+
 # stringToIndex("KQs") = [1, 2]
 def stringToIndex(cards: string) -> list: #make pairs not need o or s
     r1 = RANKINDS[cards[0]]
@@ -47,7 +50,9 @@ class RangeChart(object):
 
     def __init__(self) -> None:
         self.chart = rc
-        pass
+
+    def editChart(self, newChart):
+        self.chart = newChart
     
     # printCell("KQs")
     def printCell(self, cards):
@@ -79,10 +84,15 @@ class RangeChart(object):
 
     # Index: 0
     # Use cases:
-        # 1) rc.exists( "KQs" ) checks if KQs is in the range
-        # 2) rc.exists( [Card("Kh"), Card("Qh")] , True ) checks if KQ of hearts is in the range
-    def exists(self, cards, cardParam = False) -> int:
-        if cardParam:
+        # 1) DEFAULT rc.exists( (i, j) ) checks if rc[i][j] is in the range
+        # 2) rc.exists( "KQs" , 1 ) checks if KQs is in the range
+        # 3) rc.exists( [Card("Kh"), Card("Qh")] , 2 ) checks if KQ of hearts is in the range
+    def exists(self, cards, cardParam = 0) -> int:
+        if cardParam == 1:
+            # assert(type of cards == string)
+            index = stringToIndex(cards)
+            return self.chart[index[0]][index[1]][0]
+        elif cardParam == 2:
             # assert(type of cards == list of 2 cards)
             cardstring = cardsToString(cards[0], cards[1])
             index = stringToIndex(cardstring)
@@ -90,9 +100,8 @@ class RangeChart(object):
                 return 0
             suitedCards = cardsToSuitedString(cards[0], cards[1])
             return int(suitedCards in self.chart[index[0]][index[1]][1])
-        # else assert(type of cards == string)
-        index = stringToIndex(cards)
-        return self.chart[index[0]][index[1]][0]
+        # assert(type of cards == tuple) (indices)
+        return self.chart[cards[0]][cards[1]][0]
 
     # updates combos (1). Also updates exists (0) if necesabgeary
     # Use cases:
@@ -123,13 +132,17 @@ class RangeChart(object):
     
     # Index: 1
     # returns a set
-    def combos(self, cards, cardParam = False):
-        if cardParam:
-            # assert(type of cards == list of 2 cards)
-            cards = cardsToString(cards[0], cards[1])
-        # else assert(type of cards == string)
-        index = stringToIndex(cards)
-        return self.chart[index[0]][index[1]][1][1]
+    # Use cases:
+        # 1) DEFAULT rc.combos( (i, j) ) returns rc[i][j] combos
+    def combos(self, cards, cardParam = 0):
+        # if cardParam == 1:
+        #     # assert(type of cards == list of 2 cards)
+        #     cards = cardsToString(cards[0], cards[1])
+        # elif cardParam == 2:
+        #     # assert(type of cards == string)
+        #     index = stringToIndex(cards)
+        #     return self.chart[index[0]][index[1]][1][1]
+        # assert(type of cards == tuple) (indices)
+        return self.chart[cards[0]][cards[1]][1][1]
 
 range_chart = RangeChart()
-# range_chart.dbg_removeCombo()
